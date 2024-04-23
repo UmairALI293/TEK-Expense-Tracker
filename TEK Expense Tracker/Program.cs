@@ -1,86 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
-//using TEK_Expense_Tracker;
 using System.Data;
 using System.Data.SqlClient;
-
+using TEK_Expense_Tracker;
 
 class Program
 {
     static void Main(string[] args)
     {
         #region
-        //    Expense_Tracker tracker = new Expense_Tracker();
+        //Expense_Tracker tracker = new Expense_Tracker();
 
-        //    Console.WriteLine("\n   Expense Tracker Menu:");
-        //    Console.WriteLine("     1. Add Expense");
-        //    Console.WriteLine("     2. View Total Expenses");
-        //    Console.WriteLine("     3. View All Expenses");
-        //    Console.WriteLine("     4. Exit");
+        Console.WriteLine("\n   Expense Tracker Menu:");
+        Console.WriteLine("     1. Add Expense");
+        Console.WriteLine("     2. View All Expenses");
+        Console.WriteLine("     3. View Total of Expenses");
+        Console.WriteLine("     4. Exit");
+        ExpenseDAC expenseDAC = new ExpenseDAC();
 
-        //    while (true)
-        //    {
-        //        Console.Write("\n   Enter your choice: ");
-        //        string choice = Console.ReadLine();
 
-        //        switch (choice)
-        //        {                case "1":
-        //                Console.Write("   Enter expense description: ");
-        //                string description = Console.ReadLine();
-        //                Console.Write("   Enter expense amount: ");
-        //                int amount = int.Parse(Console.ReadLine());
+        
 
-        //                tracker.AddExpense(description, amount);
-        //                break;
-        //            case "2":
-        //                tracker.ViewTotalExpense();
-        //                break;
-        //            case "3":
-        //                tracker.ViewAllExpense();
-        //                break;
-        //            case "4":
-        //                Console.WriteLine("Exiting...");
-        //                return;
-        //            default:
-        //                Console.WriteLine("  Invalid choice. Please enter a number from 1 to 4.");
-        //                break;
-        //        }
-        //    }
-        #endregion
-
-        Program.Connection();
-    }
-    static void Connection()
-    {
-        string cs = "Data Source=UmairA-Lap\\SQLEXPRESS;Initial Catalog=tracker;Integrated Security=true;";
-        SqlConnection mycon = null;
-        try
+        while (true)
         {
-            using (mycon = new SqlConnection(cs))
-            {
-               
-                mycon.Open();
-                if (mycon.State == ConnectionState.Open)
-                {
-                    Console.WriteLine("Connection has been created successfully");
-                    string query = "select * from expense";
-                    SqlCommand cm = new SqlCommand(query, mycon);
-                    SqlDataReader dr =  cm.ExecuteReader();
-                    Console.WriteLine("Expense_ID  Expense_Name  Expense_Desc  Expense_Amount  Expense_Time");
-                    while (dr.Read())
-                    {
-                        Console.WriteLine(dr["Expense_ID"]+"  "+dr["Expense_Name"] +"  "+dr["Expense_Desc"]+"  "+dr["Expense_Amount"]+"  "+dr["Expense_Time"]);
+            Console.Write("\n   Enter your choice: ");
+            string choice = Console.ReadLine();
 
-                    }
-                }
-               
+            switch (choice)
+            {
+                case "1":
+                    Console.WriteLine("   Enter Expense ID");
+                    int ExpId = int.Parse(Console.ReadLine());
+                    Console.WriteLine("   Enter Expense Name");
+                    string Expname = Console.ReadLine();
+                    Console.WriteLine("   Enter Expense Description");
+                    string ExpDesc = Console.ReadLine();
+                    Console.WriteLine("   Enter Expense Amount");
+                    int ExpAmount = int.Parse(Console.ReadLine());
+                    Console.WriteLine("   Enter Expense Time");
+                    DateTime ExpTime = DateTime.Now;
+                    expenseDAC.AddExpense(ExpId, Expname, ExpDesc, ExpAmount, ExpTime);
+                    break;
+                case "2":
+                    
+                    expenseDAC.GetExpense();
+                    break;
+                case "3":
+                    expenseDAC.GetTotalOfExpense();
+                    break;
+                case "4":
+                    Console.WriteLine("   Enter Expense ID");
+                    int Id = int.Parse(Console.ReadLine());
+                    Console.WriteLine("   Enter Expense Name");
+                    string name = Console.ReadLine();
+                    Console.WriteLine("   Enter Expense Description");
+                    string Desc = Console.ReadLine();
+                    Console.WriteLine("   Enter Expense Amount");
+                    int Amount = int.Parse(Console.ReadLine());
+                    Console.WriteLine("   Enter Expense Time");
+                    DateTime Time = DateTime.Now;
+                    expenseDAC.UpdateExpense(Id, name, Desc, Amount, Time);
+                    Console.WriteLine("Exiting...");
+                    return;
+                default:
+                    Console.WriteLine("  Invalid choice. Please enter a number from 1 to 4.");
+                    break;
             }
         }
-       catch(SqlException e)
-        {
-            Console.WriteLine(e.Message);
-        }
-   
+        #endregion
+
+  
+       
+
+
         
     }
 }
