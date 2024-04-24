@@ -12,10 +12,8 @@ class Program
         //Expense_Tracker tracker = new Expense_Tracker();
 
         Console.WriteLine("\n   Expense Tracker Menu:");
-        Console.WriteLine("     1. Add Expense");
-        Console.WriteLine("     2. View All Expenses");
-        Console.WriteLine("     3. View Total of Expenses");
-        Console.WriteLine("     4. Exit");
+        Console.WriteLine("     1. Add Expense"+"     2. View All Expenses"+ "     3. View Total of Expenses"+ "     4. Update an Expense");
+       
         ExpenseDAC expenseDAC = new ExpenseDAC();
 
 
@@ -29,17 +27,14 @@ class Program
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("   Enter Expense ID");
-                    int ExpId = int.Parse(Console.ReadLine());
-                    Console.WriteLine("   Enter Expense Name");
+                   
+                    Console.WriteLine("   Enter  Name");
                     string Expname = Console.ReadLine();
-                    Console.WriteLine("   Enter Expense Description");
+                    Console.WriteLine("   Enter  Description");
                     string ExpDesc = Console.ReadLine();
-                    Console.WriteLine("   Enter Expense Amount");
-                    int ExpAmount = int.Parse(Console.ReadLine());
-                    Console.WriteLine("   Enter Expense Time");
-                    DateTime ExpTime = DateTime.Now;
-                    expenseDAC.AddExpense(ExpId, Expname, ExpDesc, ExpAmount, ExpTime);
+                    Console.WriteLine("   Enter  Amount");
+                    int ExpAmount = int.Parse(Console.ReadLine());                     
+                    expenseDAC.AddExpense(Expname, ExpDesc, ExpAmount);
                     break;
                 case "2":
                     
@@ -49,18 +44,18 @@ class Program
                     expenseDAC.GetTotalOfExpense();
                     break;
                 case "4":
-                    Console.WriteLine("   Enter Expense ID");
+                    Console.WriteLine("   Enter  ID");
                     int Id = int.Parse(Console.ReadLine());
-                    Console.WriteLine("   Enter Expense Name");
+                    Console.WriteLine("   Enter  Name");
                     string name = Console.ReadLine();
-                    Console.WriteLine("   Enter Expense Description");
+                    Console.WriteLine("   Enter  Description");
                     string Desc = Console.ReadLine();
-                    Console.WriteLine("   Enter Expense Amount");
+                    Console.WriteLine("   Enter  Amount");
                     int Amount = int.Parse(Console.ReadLine());
-                    Console.WriteLine("   Enter Expense Time");
+                    Console.WriteLine("   Enter  Time");
                     DateTime Time = DateTime.Now;
                     expenseDAC.UpdateExpense(Id, name, Desc, Amount, Time);
-                    Console.WriteLine("Exiting...");
+                    
                     return;
                 default:
                     Console.WriteLine("  Invalid choice. Please enter a number from 1 to 4.");
